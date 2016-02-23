@@ -9,6 +9,6 @@
     "SYSTEM" : 
     {
         "DATA_DIR" : "/var/lib/tor",
-        "TORRC_PATH" : "./torrc.test"
+        "TORRC_PATH" : "/etc/tor/torrc"
     }
 }

@@ -14,7 +14,7 @@ options["ROUTER_ADDRESS"] = sys.argv[1]
 options["ROUTER_NICKNAME"] = sys.argv[2]
 
 # Generate router keys
-cmd = ["tor", "--list-fingerprint", "--orport", "1", 
+cmd = ["sudo", "-u", "debian-tor", "tor", "--list-fingerprint", "--orport", "1", 
 "--dirserver", "x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff",
 "--datadirectory", options["SYSTEM"]["DATA_DIR"]]
 subprocess.check_call(cmd)
