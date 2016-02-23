@@ -14,5 +14,5 @@ options = json.load(open("./config.json"))
 
 subprocess.check_call(["ln", "-s", options["SYSTEM"]["DATA_DIR"] + "/notice.log", home_dir + "/notice.log"])
 subprocess.check_call(["ln", "-s", options["SYSTEM"]["DATA_DIR"] + "/info.log", home_dir + "/info.log"])
-subprocess.check_call(["ln", "-s", options["SYSTEM"]["DATA_DIR"] + "/torrc", home_dir + "/torrc"])
+subprocess.check_call(["ln", "-s", options["SYSTEM"]["TORRC_PATH"], home_dir + "/torrc"])
 
