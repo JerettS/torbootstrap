@@ -41,6 +41,11 @@ DirAuthority $DIR_NICKNAME orport=$OR_PORT no-v2 hs v3ident=$DIR_AUTH_CERTIFICAT
 SocksPort $SOCKS_PORT\n\
 OrPort $OR_PORT\n\
 Address $ROUTER_ADDRESS\n\
+AssumeReachable 1\n\
+EnforceDistinctSubnets 0\n\
+UseEntryGuards 0\n\
+ControlPort 9051\n\
+CookieAuthentication 1\n\
 \n\
 # An exit policy that allows exiting to IPv4 LAN\n\
 # ExitPolicy accept 192.168.1.0/24:*\n\
