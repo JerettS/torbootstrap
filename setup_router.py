@@ -16,7 +16,7 @@ options["ROUTER_NICKNAME"] = sys.argv[2]
 # Generate router keys
 cmd = ["sudo", "-u", "debian-tor", "tor", "--list-fingerprint", "--orport", "1", 
 "--dirserver", "x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff",
-"--datadirectory", options["SYSTEM"]["DATA_DIR"]]
+"--datadirectory", options["DATA_DIR"]]
 subprocess.check_call(cmd)
 
 
@@ -25,7 +25,7 @@ subprocess.check_call(cmd)
 #
 torrc_template = Template("\
 TestingTorNetwork 1 \n\
-DataDirectory /var/lib/tor \n\
+DataDirectory $DATA_DIR \n\
 RunAsDaemon 1 \n\
 ConnLimit 60 \n\
 Nickname $ROUTER_NICKNAME \n\
@@ -58,9 +58,9 @@ CookieAuthentication 1\n\
 torrc_content = torrc_template.safe_substitute(options)
 
 # Save the file contents
-if os.path.isfile(options["SYSTEM"]["TORRC_PATH"]) :
-    subprocess.check_call(["mv", options["SYSTEM"]["TORRC_PATH"], options["SYSTEM"]["TORRC_PATH"]+"_backup_"+str(int(time.time()))]) 
-f = open(options["SYSTEM"]["TORRC_PATH"], 'w')
+if os.path.isfile(options["TORRC_PATH"]) :
+    subprocess.check_call(["mv", options["TORRC_PATH"], options["TORRC_PATH"]+"_backup_"+str(int(time.time()))]) 
+f = open(options["TORRC_PATH"], 'w')
 f.write(torrc_content)
 f.close()
 
