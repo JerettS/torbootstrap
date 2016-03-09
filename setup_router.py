@@ -3,18 +3,19 @@ import json
 import time
 import os.path
 import subprocess
+import socket
 from string import Template
 
-if len(sys.argv) < 3 :
-    print "Usage: python " + str(sys.argv[0]) + " <router_address> <router_name>"
+if len(sys.argv) < 2 :
+    print "Usage: python " + str(sys.argv[0]) + " <router_name>"
     sys.exit(1) 
 
 options = json.load(open("./config.json"))
-options["ROUTER_ADDRESS"] = sys.argv[1]
+options["ROUTER_ADDRESS"] = socket.gethostbyname(socket.gethostname())
 options["ROUTER_NICKNAME"] = sys.argv[2]
 
 # Generate router keys
-cmd = ["sudo", "-u", "debian-tor", "tor", "--list-fingerprint", "--orport", "1", 
+cmd = ["sudo", "-u", "toranon", "tor", "--list-fingerprint", "--orport", "1", 
 "--dirserver", "x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff",
 "--datadirectory", options["DATA_DIR"]]
 subprocess.check_call(cmd)
