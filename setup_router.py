@@ -12,7 +12,7 @@ if len(sys.argv) < 2 :
 
 options = json.load(open("./config.json"))
 options["ROUTER_ADDRESS"] = socket.gethostbyname(socket.gethostname())
-options["ROUTER_NICKNAME"] = sys.argv[2]
+options["ROUTER_NICKNAME"] = sys.argv[1]
 
 # Generate router keys
 cmd = ["sudo", "-u", "toranon", "tor", "--list-fingerprint", "--orport", "1", 
