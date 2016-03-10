@@ -36,8 +36,8 @@ Log notice file /var/lib/tor/notice.log \n\
 Log info file /var/lib/tor/info.log \n\
 ProtocolWarnings 1 \n\
 SafeLogging 0 \n\
-DisableDebuggerAttachment 0 \n\
-DirAuthority $DIR_NICKNAME orport=$OR_PORT no-v2 hs v3ident=$DIR_AUTH_CERTIFICATE $DIR_ADDRESS:$DIR_PORT $DIR_FINGERPRINT\n\
+# DisableDebuggerAttachment 0 \n\
+DirServer $DIR_NICKNAME orport=$OR_PORT no-v2 hs v3ident=$DIR_AUTH_CERTIFICATE $DIR_ADDRESS:$DIR_PORT $DIR_FINGERPRINT\n\
 \n\
 SocksPort $SOCKS_PORT\n\
 OrPort $OR_PORT\n\
