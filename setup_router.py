@@ -10,15 +10,15 @@ if len(sys.argv) < 2 :
     print "Usage: python " + str(sys.argv[0]) + " <router_name>"
     sys.exit(1) 
 
-options = json.load(open("./config.json"))
+options = json.load(open("./tor_bootstrap/config.json"))
 options["ROUTER_ADDRESS"] = socket.gethostbyname(socket.gethostname())
 options["ROUTER_NICKNAME"] = sys.argv[1]
 
 # Generate router keys
-cmd = ["sudo", "-u", "toranon", "tor", "--list-fingerprint", "--orport", "1", 
-"--dirserver", "x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff",
-"--datadirectory", options["DATA_DIR"]]
-subprocess.check_call(cmd)
+#cmd = ["sudo", "-u", "toranon", "tor", "--list-fingerprint", "--orport", "1", 
+#"--dirserver", "x 127.0.0.1:1 ffffffffffffffffffffffffffffffffffffffff",
+#"--datadirectory", options["DATA_DIR"]]
+#subprocess.check_call(cmd)
 
 
 #
@@ -45,7 +45,7 @@ Address $ROUTER_ADDRESS\n\
 AssumeReachable 1\n\
 EnforceDistinctSubnets 0\n\
 UseEntryGuards 0\n\
-ControlPort 9051\n\
+ControlPort 8667\n\
 CookieAuthentication 1\n\
 \n\
 # An exit policy that allows exiting to IPv4 LAN\n\
