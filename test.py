@@ -38,9 +38,9 @@ for line in webfile:
 
 pool_size = 4
 pool = Pool(processes=pool_size)
-resultsreg = pool.map(regrunner,nodes)
+resultsreg = pool.map(regrunner,sites)
 print resultsreg
-resultstor = pool.map(torrunner,nodes)
+resultstor = pool.map(torrunner,sites)
 print resultstor
 
 print "RESULTS:"
