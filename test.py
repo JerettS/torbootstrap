@@ -16,21 +16,22 @@ def torrunner(website):
 	try:
 		output = "TOR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read()
 		subprocess.Popen(reset, shell=True, stdout=subprocess.PIPE).stdout.read()
-	except subprocess.CalledProcessError, e:
+	except subprocess.CalledProcessError:
 		return "FAILED " + website
 
 def regrunner(website):
 	commandz = curl.replace('WEBSITE', website)
 	try:
 		return "REGULAR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read()
-	except subprocess.CalledProcessError, e:
+	except subprocess.CalledProcessError:
 		return "FAILED " + website
 
 sites = []
-for line in webfile:
+data = f.read()
+lines = data.split('\n')
+for line in lines:
 	if line[0] == '#': continue
 	sites.append(line.strip('\n'))
-print sites
 
 
 
@@ -43,7 +44,7 @@ for i in range(0,10):
 	results.append(torrunner(site))
 	
 for result in results:
-	print result
+	print( result)
 
 # pool_size = 4
 # pool = Pool(processes=pool_size)
