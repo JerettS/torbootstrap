@@ -2,52 +2,61 @@ import os, sys, time
 from multiprocessing import Process, Pool
 from subprocess import *
 import subprocess
+from os import system
 
-torcurl = ["time curl --socks5-hostname 127.0.0.1:8666 WEBSITE"]
-curl = ["time curl WEBSITE"]
-reset = ["(echo authenticate '\"\"'; echo signal newnym; echo quit) | nc localhost 8667"]
+torcurl = "(time curl -s -o /dev/null --socks5-hostname 127.0.0.1:8666 WEBSITE) 3>&1 1>&2 2>&3 "
+curl = "(time curl -s  -o /dev/null WEBSITE) 3>&1 1>&2 2>&3 "
+reset = "(echo authenticate '\"\"'; echo signal newnym; echo quit) | nc localhost 8667"
 
 
-webfile = open('.tor_bootstrap/websites', 'r')
-
-#			 sudo -S chmod -R 777 ./tor_bootstrap ;\
-#			sudo -S chown -R toranon /etc/tor ; \
-
-#			 sudo -S -u toranon echo \"blahblahbah\" | sudo -S /etc/tor/torrc ;\
-
+webfile = open('./tor_bootstrap/websites', 'r')
 
 def torrunner(website):
-	commandz = map(lambda x: x.replace('WEBSITE', website), torcurl)
+	commandz = torcurl.replace('WEBSITE', website)
 	try:
-		output =  website + subprocess.check_output(commandz)
-		subprocess.check_output(reset)
+		output = "TOR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read()
+		subprocess.Popen(reset, shell=True, stdout=subprocess.PIPE).stdout.read()
 	except subprocess.CalledProcessError, e:
 		return "FAILED " + website
 
 def regrunner(website):
-	commandz = map(lambda x: x.replace('WEBSITE', website), curl)
+	commandz = curl.replace('WEBSITE', website)
 	try:
-		return website + subprocess.check_output(commandz)
+		return "REGULAR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read()
 	except subprocess.CalledProcessError, e:
 		return "FAILED " + website
 
 sites = []
 for line in webfile:
 	if line[0] == '#': continue
-	sites.append((line.strip('\n'), torcurl)
+	sites.append(line.strip('\n'))
+print sites
 
-pool_size = 4
-pool = Pool(processes=pool_size)
-resultsreg = pool.map(regrunner,nodes)
-print resultsreg
-resultstor = pool.map(torrunner,nodes)
-print resultstor
 
-print "RESULTS:"
-for result in resultsreg:
+
+results = []
+for site in sites:
+	regrunner(site)
+
+for i in range(0,10):
+	results.append(regrunner(site))
+	results.append(torrunner(site))
+	
+for result in results:
 	print result
-for result in resultstor:
-	print result
+
+# pool_size = 4
+# pool = Pool(processes=pool_size)
+# resultsreg = pool.map(regrunner,sites)
+# print resultsreg
+# resultstor = pool.map(torrunner,sites)
+# print resultstor
+
+# print "RESULTS:"
+# for result in resultsreg:
+# 	print result
+# for result in resultstor:
+# 	print result
  
 
 
