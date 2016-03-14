@@ -34,7 +34,7 @@ def regrunner(website):
 sites = []
 for line in webfile:
 	if line[0] == '#': continue
-	sites.append((line.strip('\n'), torcurl)
+	sites.append((line.strip('\n'), torcurl))
 
 pool_size = 4
 pool = Pool(processes=pool_size)
