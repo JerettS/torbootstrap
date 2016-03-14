@@ -8,7 +8,7 @@ curl = ["time curl WEBSITE"]
 reset = ["(echo authenticate '\"\"'; echo signal newnym; echo quit) | nc localhost 8667"]
 
 
-webfile = open('.tor_bootstrap/websites', 'r')
+webfile = open('./tor_bootstrap/websites', 'r')
 
 #			 sudo -S chmod -R 777 ./tor_bootstrap ;\
 #			sudo -S chown -R toranon /etc/tor ; \
