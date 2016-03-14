@@ -27,7 +27,7 @@ def regrunner(website):
 		return "FAILED " + website
 
 sites = []
-data = f.read()
+data = webfile.read()
 lines = data.split('\n')
 for line in lines:
 	if line[0] == '#': continue
