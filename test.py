@@ -30,13 +30,13 @@ sites = data.split('\n')
 
 results = []
 for site in sites:
-	regrunner(site)
+	print(regrunner(site))
 
 for i in range(0,10):
 	for site in sites:
- 		results.append(regrunner(site))
- 		results.append(torrunner(site))
- 	subprocess.Popen(reset, shell=True, stdout=subprocess.PIPE)
+		results.append(regrunner(site))
+		results.append(torrunner(site))
+	subprocess.Popen(reset, shell=True, stdout=subprocess.PIPE)
 
 	
 for result in results:
