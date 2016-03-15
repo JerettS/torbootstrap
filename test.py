@@ -14,7 +14,7 @@ webfile = open('./tor_bootstrap/websites', 'r')
 def torrunner(website):
 	commandz = torcurl.replace('WEBSITE', website)
 	try:
-		output = "TOR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read().decode("utf-8")
+		return "TOR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read().decode("utf-8")
 	except subprocess.CalledProcessError:
 		return "FAILED " + website
 
@@ -30,7 +30,7 @@ sites = data.split('\n')
 
 results = []
 for site in sites:
-	print(regrunner(site))
+	regrunner(site)
 
 for i in range(0,10):
 	for site in sites:
