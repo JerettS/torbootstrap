@@ -16,6 +16,7 @@ def torrunner(website):
 	try:
 		output = "TOR " + website + subprocess.Popen(commandz, shell=True, stdout=subprocess.PIPE).stdout.read().decode("utf-8")
 		subprocess.Popen(reset, shell=True, stdout=subprocess.PIPE).stdout.read()
+		return output
 	except subprocess.CalledProcessError:
 		return "FAILED " + website
 
@@ -27,11 +28,11 @@ def regrunner(website):
 		return "FAILED " + website
 
 data = webfile.read()
-sites = data.split('\n')
+sites = data.split('\n')[0:-1]
 
 results = []
 for site in sites:
-	regrunner(site)
+	print(regrunner(site))
 
 for i in range(0,10):
 	for site in sites:
