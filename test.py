@@ -30,7 +30,7 @@ sites = data.split('\n')
 
 results = []
 for site in sites:
-	print(regrunner(site)
+	regrunner(site)
 
 for i in range(0,10):
 	for site in sites:
