@@ -60,7 +60,7 @@ torrc_content = torrc_template.safe_substitute(options)
 # Save the file contents
 #if os.path.isfile(options["TORRC_PATH"]) :
 #    subprocess.check_call(["mv", options["TORRC_PATH"], options["TORRC_PATH"]+"_backup_"+str(int(time.time()))]) 
-f = open(options["/etc/tor/torrc"], 'w')
+f = open("/etc/tor/torrc", 'w')
 f.write(torrc_content)
 f.close()
 
