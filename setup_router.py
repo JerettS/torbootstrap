@@ -1,5 +1,4 @@
 import sys
-import json
 import time
 import os.path
 import subprocess
@@ -10,7 +9,7 @@ if len(sys.argv) < 2 :
     print "Usage: python " + str(sys.argv[0]) + " <router_name>"
     sys.exit(1) 
 
-options = json.load(open("./tor_bootstrap/config.json"))
+options = {}
 options["ROUTER_ADDRESS"] = socket.gethostbyname(socket.gethostname())
 options["ROUTER_NICKNAME"] = sys.argv[1]
 
@@ -26,7 +25,7 @@ options["ROUTER_NICKNAME"] = sys.argv[1]
 #
 torrc_template = Template("\
 TestingTorNetwork 1 \n\
-DataDirectory $DATA_DIR \n\
+DataDirectory /var/lib/tor \n\
 RunAsDaemon 1 \n\
 ConnLimit 60 \n\
 Nickname $ROUTER_NICKNAME \n\
@@ -37,10 +36,10 @@ Log info file /var/lib/tor/info.log \n\
 ProtocolWarnings 1 \n\
 SafeLogging 0 \n\
 # DisableDebuggerAttachment 0 \n\
-DirServer $DIR_NICKNAME orport=$OR_PORT no-v2 hs v3ident=$DIR_AUTH_CERTIFICATE $DIR_ADDRESS:$DIR_PORT $DIR_FINGERPRINT\n\
+DirServer PLDIR orport=$5000 no-v2 hs v3ident=D276A67B59C37CCC325F1A3F287C3BEC82EFE2A5 194.254.215.11:7000 0CFD77CF442AB129F94A2ED17C0239905664DDCA\n\
 \n\
-SocksPort $SOCKS_PORT\n\
-OrPort $OR_PORT\n\
+SocksPort $8666\n\
+OrPort $5000\n\
 Address $ROUTER_ADDRESS\n\
 AssumeReachable 1\n\
 EnforceDistinctSubnets 0\n\
@@ -61,7 +60,7 @@ torrc_content = torrc_template.safe_substitute(options)
 # Save the file contents
 #if os.path.isfile(options["TORRC_PATH"]) :
 #    subprocess.check_call(["mv", options["TORRC_PATH"], options["TORRC_PATH"]+"_backup_"+str(int(time.time()))]) 
-f = open(options["TORRC_PATH"], 'w')
+f = open(options["/etc/tor/torrc"], 'w')
 f.write(torrc_content)
 f.close()
 
