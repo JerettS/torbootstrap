@@ -36,10 +36,10 @@ Log info file /var/lib/tor/info.log \n\
 ProtocolWarnings 1 \n\
 SafeLogging 0 \n\
 # DisableDebuggerAttachment 0 \n\
-DirServer PLDIR orport=$5000 no-v2 hs v3ident=D1F6F2BD96C7A582D52404394D846F28E1746E2E 192.168.1.4:7000 D2DD4ADA3BB34D8187EA4CFC1121038C7E63DFE5\n\
+DirServer PLDIR orport=5000 no-v2 hs v3ident=D1F6F2BD96C7A582D52404394D846F28E1746E2E 192.168.1.4:7000 D2DD4ADA3BB34D8187EA4CFC1121038C7E63DFE5\n\
 \n\
-SocksPort $8666\n\
-OrPort $5000\n\
+SocksPort 8666\n\
+OrPort 5000\n\
 Address $ROUTER_ADDRESS\n\
 AssumeReachable 1\n\
 EnforceDistinctSubnets 0\n\
