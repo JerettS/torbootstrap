@@ -24,7 +24,7 @@ options["ROUTER_NICKNAME"] = sys.argv[1]
 # Create torrc file
 #
 torrc_template = Template("\
-TestingTorNetwork 1 \n\
+#TestingTorNetwork 1 \n\
 DataDirectory /var/lib/tor \n\
 RunAsDaemon 1 \n\
 ConnLimit 60 \n\
