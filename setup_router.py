@@ -23,36 +23,28 @@ options["ROUTER_NICKNAME"] = sys.argv[1]
 #
 # Create torrc file
 #
-torrc_template = Template("\
-#TestingTorNetwork 1 \n\
-DataDirectory /var/lib/tor \n\
-RunAsDaemon 1 \n\
-ConnLimit 60 \n\
-Nickname $ROUTER_NICKNAME \n\
-ShutdownWaitLength 0 \n\
-PidFile /var/lib/tor/pid \n\
-Log notice file /var/lib/tor/notice.log \n\
-Log info file /var/lib/tor/info.log \n\
-ProtocolWarnings 1 \n\
-SafeLogging 0 \n\
-# DisableDebuggerAttachment 0 \n\
-DirServer PLDIR orport=6666 no-v2 hs v3ident=D1F6F2BD96C7A582D52404394D846F28E1746E2E 130.79.48.57:7000 D2DD4ADA3BB34D8187EA4CFC1121038C7E63DFE5\n\
-\n\
-SocksPort 8666\n\
-OrPort 6666\n\
-#Address $ROUTER_ADDRESS\n\
-AssumeReachable 1\n\
-EnforceDistinctSubnets 0\n\
-UseEntryGuards 0\n\
-ControlPort 8667\n\
-CookieAuthentication 1\n\
-\n\
-# An exit policy that allows exiting to IPv4 LAN\n\
-# ExitPolicy accept 192.168.1.0/24:*\n\
-\n\
-# An exit policy that allows exiting to IPv6 localhost\n\
-# ExitPolicy accept [::1]:*\n\
-# IPv6Exit 1\n\
+torrc_template = Template(" \
+TestingTorNetwork 1 \n \
+DataDirectory /var/lib/tor \n \
+RunAsDaemon 1 \n \
+ConnLimit 60 \n \
+Nickname $ROUTER_NICKNAME \n \
+ShutdownWaitLength 0 \n \
+PidFile /var/lib/tor/pid \n \
+Log notice file /var/lib/tor/notice.log \n \
+Log info file /var/lib/tor/info.log \n \
+ProtocolWarnings 1 \n \
+SafeLogging 0 \n \
+DisableDebuggerAttachment 0 \n \
+DirAuthority RS4 orport=5000 no-v2 hs v3ident=8E9F5D42E1189A917490A3267EED0AE42AD3E8A6 40.117.38.173:7000 A237833CF716969614C5BF356C029ECFCB395590 \n\
+SocksPort 9050 \n \
+OrPort 5000 \n \
+#Address 104.155.64.249 \n \
+AssumeReachable 1 \n \
+EnforceDistinctSubnets 0 \n \
+UseEntryGuards 0 \n \
+ControlPort 9051 \n \
+CookieAuthentication 1 \n \
 ")
 
 torrc_content = torrc_template.safe_substitute(options)
